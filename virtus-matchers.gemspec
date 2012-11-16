@@ -8,6 +8,8 @@ Gem::Specification.new do |s|
   s.name = 'virtus-matchers'
   s.version = Virtus::Matchers::VERSION.dup
   s.summary = 'RSpec matchers for Virtus'
+  s.description = 'RSpec matchers for Virtus'
+  s.homepage = 'https://github.com/tmattia/virtus-matchers'
 
   s.authors = ['Tomas Mattia']
   s.email = 'tomas.mattia@gmail.com'
