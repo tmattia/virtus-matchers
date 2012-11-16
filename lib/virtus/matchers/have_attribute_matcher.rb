@@ -13,5 +13,9 @@ module Virtus
         attribute and attribute.options[:primitive] == @type
       end
     end
+
+    def have_attribute(name, type)
+      HaveAttributeMatcher.new(name, type)
+    end
   end
 end

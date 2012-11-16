@@ -2,3 +2,7 @@
 
 require 'virtus'
 require 'virtus-matchers'
+
+RSpec.configure do |config|
+  config.include Virtus::Matchers
+end
