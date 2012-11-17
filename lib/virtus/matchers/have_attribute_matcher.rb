@@ -10,7 +10,7 @@ module Virtus
 
       def matches?(klass)
         @klass = klass
-        attribute = @klass.attribute_set.find { |attr| attr.name == @name }
+        attribute = @klass.attribute_set[@name]
         attribute and attribute.options[:primitive] == @type
       end
 
