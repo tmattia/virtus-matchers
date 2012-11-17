@@ -21,6 +21,11 @@ describe Virtus::Matchers::HaveAttributeMatcher do
     it 'should not match' do
       matcher.matches?(Example).should be_false
     end
+
+    it 'should have a failure message that indicates the missing attribute' do
+      matcher.matches?(Example)
+      matcher.failure_message.should == "expected #{Example} to have attribute foo of type Hash"
+    end
   end
 
   context 'when attribute is not defined' do

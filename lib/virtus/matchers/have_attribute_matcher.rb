@@ -9,8 +9,13 @@ module Virtus
       end
 
       def matches?(klass)
-        attribute = klass.attribute_set.find { |attr| attr.name == @name }
+        @klass = klass
+        attribute = @klass.attribute_set.find { |attr| attr.name == @name }
         attribute and attribute.options[:primitive] == @type
+      end
+
+      def failure_message
+        "expected #{@klass} to have attribute #{@name} of type #{@type}"
       end
     end
 
