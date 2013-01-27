@@ -11,7 +11,12 @@ module Virtus
       def matches?(klass)
         @klass = klass
         attribute = @klass.attribute_set[@name]
-        attribute and attribute.options[:primitive] == @type
+        return false unless attribute
+        if @type.class == Array
+          attribute.options[:primitive] == Array && attribute.options[:member_type] == @type.first
+        else
+          attribute.options[:primitive] == @type
+        end
       end
 
       def failure_message

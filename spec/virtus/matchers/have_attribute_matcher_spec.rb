@@ -5,13 +5,30 @@ describe Virtus::Matchers::HaveAttributeMatcher do
     include Virtus
 
     attribute :foo, String
+    attribute :bar, Array[String]
   end
 
-  context 'when attribute is defined', 'with correct type' do
+  context 'when attribute is defined', 'with simple type' do
     let(:matcher) { described_class.new(:foo, String) }
 
     it 'should match' do
       matcher.matches?(Example).should be_true
+    end
+  end
+
+  context 'when attribute is defined', 'with array type', 'and correct member type' do
+    let(:matcher) { described_class.new(:bar, Array[String]) }
+
+    it 'should match' do
+      matcher.matches?(Example).should be_true
+    end
+  end
+
+  context 'when attribute is defined', 'with array type', 'but wrong member type' do
+    let(:matcher) { described_class.new(:bar, Array[Integer]) }
+
+    it 'should not match' do
+      matcher.matches?(Example).should be_false
     end
   end
 
