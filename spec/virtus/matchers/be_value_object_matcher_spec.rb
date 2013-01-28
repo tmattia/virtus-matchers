@@ -14,6 +14,11 @@ describe Virtus::Matchers::BeAValueObjectMatcher do
     it 'should match' do
       matcher.matches?(ExampleValueObject).should be_true
     end
+
+    it 'should have a description' do
+      matcher.matches?(ExampleValueObject)
+      matcher.description.should == 'be a value object'
+    end
   end
 
   context 'when Virtus::ValueObject is not included' do
@@ -21,9 +26,9 @@ describe Virtus::Matchers::BeAValueObjectMatcher do
       matcher.matches?(Example).should be_false
     end
 
-    it 'should have a failure message that indicates the missing module' do
+    it 'should have a failure message' do
       matcher.matches?(Example)
-      matcher.failure_message.should == "expected #{Example} to include module Virtus::ValueObject"
+      matcher.failure_message.should == "expected #{Example} to be a value object"
     end
   end
 end

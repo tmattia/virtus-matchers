@@ -8,8 +8,12 @@ module Virtus
         @klass.included_modules.include?(Virtus::ValueObject)
       end
 
+      def description
+        'be a value object'
+      end
+
       def failure_message
-        "expected #{@klass} to include module Virtus::ValueObject"
+        "expected #{@klass} to #{description}"
       end
     end
 

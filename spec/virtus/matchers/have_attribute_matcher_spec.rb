@@ -14,6 +14,11 @@ describe Virtus::Matchers::HaveAttributeMatcher do
     it 'should match' do
       matcher.matches?(Example).should be_true
     end
+
+    it 'should have a description' do
+      matcher.matches?(Example)
+      matcher.description.should == 'have attribute foo of type String'
+    end
   end
 
   context 'when attribute is defined', 'with array type', 'and correct member type' do
@@ -22,6 +27,11 @@ describe Virtus::Matchers::HaveAttributeMatcher do
     it 'should match' do
       matcher.matches?(Example).should be_true
     end
+
+    it 'should have a description' do
+      matcher.matches?(Example)
+      matcher.description.should == 'have attribute bar of type Array[String]'
+    end
   end
 
   context 'when attribute is defined', 'with array type', 'but wrong member type' do
@@ -29,6 +39,11 @@ describe Virtus::Matchers::HaveAttributeMatcher do
 
     it 'should not match' do
       matcher.matches?(Example).should be_false
+    end
+
+    it 'should have a failure message' do
+      matcher.matches?(Example)
+      matcher.failure_message.should == "expected #{Example} to have attribute bar of type Array[Integer]"
     end
   end
 
@@ -39,17 +54,22 @@ describe Virtus::Matchers::HaveAttributeMatcher do
       matcher.matches?(Example).should be_false
     end
 
-    it 'should have a failure message that indicates the missing attribute' do
+    it 'should have a failure message' do
       matcher.matches?(Example)
       matcher.failure_message.should == "expected #{Example} to have attribute foo of type Hash"
     end
   end
 
   context 'when attribute is not defined' do
-    let(:matcher) { described_class.new(:bar, String) }
+    let(:matcher) { described_class.new(:baz, String) }
 
     it 'should not match' do
       matcher.matches?(Example).should be_false
+    end
+
+    it 'should have a failure message' do
+      matcher.matches?(Example)
+      matcher.failure_message.should == "expected #{Example} to have attribute baz of type String"
     end
   end
 end

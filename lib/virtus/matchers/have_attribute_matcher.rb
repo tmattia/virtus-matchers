@@ -19,8 +19,13 @@ module Virtus
         end
       end
 
+      def description
+        type = @type.class == Array ? "Array#{@type}" : @type
+        "have attribute #{@name} of type #{type}"
+      end
+
       def failure_message
-        "expected #{@klass} to have attribute #{@name} of type #{@type}"
+        "expected #{@klass} to #{description}"
       end
     end
 
