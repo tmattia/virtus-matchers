@@ -6,6 +6,7 @@ describe Virtus::Matchers::HaveAttributeMatcher do
 
     attribute :foo, String
     attribute :bar, Array[String]
+    attribute :baz, Array
   end
 
   context 'when attribute is defined', 'with simple type' do
@@ -31,6 +32,19 @@ describe Virtus::Matchers::HaveAttributeMatcher do
     it 'should have a description' do
       matcher.matches?(Example)
       matcher.description.should == 'have attribute bar of type Array[String]'
+    end
+  end
+
+  context 'when attribute is defined', 'with array type', 'and no member type' do
+    let(:matcher) { described_class.new(:baz, Array) }
+
+    it 'should match' do
+      matcher.matches?(Example).should be_true
+    end
+
+    it 'should have a description' do
+      matcher.matches?(Example)
+      matcher.description.should == 'have attribute baz of type Array'
     end
   end
 
