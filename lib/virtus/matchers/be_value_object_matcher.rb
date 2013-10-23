@@ -5,7 +5,7 @@ module Virtus
     class BeAValueObjectMatcher
       def matches?(klass)
         @klass = klass
-        @klass.included_modules.include?(Virtus::ValueObject)
+        @klass.included_modules.include?(Virtus::ValueObject::InstanceMethods)
       end
 
       def description

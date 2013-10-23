@@ -5,7 +5,7 @@ describe Virtus::Matchers::BeAValueObjectMatcher do
   end
 
   class ExampleValueObject
-    include Virtus::ValueObject
+    include Virtus.value_object
   end
 
   let(:matcher) { described_class.new }

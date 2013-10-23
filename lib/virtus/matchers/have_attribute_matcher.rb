@@ -13,9 +13,10 @@ module Virtus
         attribute = @klass.attribute_set[@name]
         return false unless attribute
         if @type.class == Array
-          attribute.options[:primitive] == Array && attribute.options[:member_type] == @type.first
+          attribute.primitive == Array &&
+            attribute.options[:member_type].primitive == @type.first
         else
-          attribute.options[:primitive] == @type
+          attribute.primitive == @type
         end
       end
 

@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.require_paths = ['lib']
 
-  s.add_dependency 'virtus'
+  s.add_dependency 'virtus', '~> 1.0.0'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'bundler'

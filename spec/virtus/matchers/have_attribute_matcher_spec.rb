@@ -2,7 +2,7 @@
 
 describe Virtus::Matchers::HaveAttributeMatcher do
   class Example
-    include Virtus
+    include Virtus.model
 
     attribute :foo, String
     attribute :bar, Array[String]
