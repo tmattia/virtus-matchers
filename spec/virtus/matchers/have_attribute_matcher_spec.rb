@@ -1,12 +1,15 @@
 # encoding: utf-8
 
 describe Virtus::Matchers::HaveAttributeMatcher do
+  class FakeCoercer; end
+
   class Example
     include Virtus.model
 
     attribute :foo, String
     attribute :bar, Array[String]
     attribute :baz, Array
+    attribute :lol, DateTime, coercer: FakeCoercer
   end
 
   context 'when attribute is defined', 'with simple type' do
@@ -32,6 +35,32 @@ describe Virtus::Matchers::HaveAttributeMatcher do
     it 'should have a description' do
       matcher.matches?(Example)
       matcher.description.should == 'have attribute bar of type Array[String]'
+    end
+  end
+
+  context 'when attribute is defined', 'with a valid coercer' do
+    let(:matcher) { described_class.new(:lol, DateTime).coerced_with(FakeCoercer) }
+
+    it 'should match' do
+      matcher.matches?(Example).should be_true
+    end
+
+    it 'should have a description' do
+      matcher.matches?(Example)
+      matcher.description.should == 'have attribute lol of type DateTime coerced with FakeCoercer'
+    end
+  end
+
+  context 'when attribute is defined', 'with invalid coercer' do
+    let(:matcher) { described_class.new(:lol, DateTime).coerced_with(String) }
+
+    it 'should not match' do
+      matcher.matches?(Example).should be_false
+    end
+
+    it 'should have a failure message' do
+      matcher.matches?(Example)
+      matcher.failure_message.should == "expected #{Example} to have attribute lol of type DateTime coerced with FakeCoercer"
     end
   end
 
