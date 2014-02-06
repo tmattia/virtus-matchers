@@ -3,7 +3,7 @@
 module Virtus
   module Matchers
     class HaveAttributeMatcher
-      def initialize(name, type)
+      def initialize(name, type = nil)
         @name = name
         @type = type
       end
@@ -28,7 +28,9 @@ module Virtus
 
       def description
         type = @type.class == Array ? "Array#{@type}" : @type
-        "have attribute #{@name} of type #{type}#{coercer_description}"
+        str = "have attribute #{@name}"
+        str += " of type #{type}#{coercer_description}" unless @type.nil?
+        str
       end
 
       def failure_message
@@ -37,7 +39,7 @@ module Virtus
 
       private
       def valid_type
-        @attribute.primitive == @type
+        @type.nil? || @attribute.primitive == @type
       end
 
       def valid_coercer

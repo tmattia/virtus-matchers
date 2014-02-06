@@ -6,10 +6,24 @@ describe Virtus::Matchers::HaveAttributeMatcher do
   class Example
     include Virtus.model
 
+    attribute :any
     attribute :foo, String
     attribute :bar, Array[String]
     attribute :baz, Array
     attribute :lol, DateTime, coercer: FakeCoercer
+  end
+
+  context 'when attribute is defined', 'with no type' do
+    let(:matcher) { described_class.new(:any) }
+
+    it 'should match' do
+      matcher.matches?(Example).should be_true
+    end
+
+    it 'should have a description' do
+      matcher.matches?(Example)
+      matcher.description.should == 'have attribute any'
+    end
   end
 
   context 'when attribute is defined', 'with simple type' do
