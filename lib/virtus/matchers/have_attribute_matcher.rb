@@ -51,7 +51,7 @@ module Virtus
       end
     end
 
-    def have_attribute(name, type)
+    def have_attribute(name, type = nil)
       HaveAttributeMatcher.new(name, type)
     end
   end
